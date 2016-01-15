@@ -485,7 +485,7 @@ class RenderSupport
 
     // stencil masks
 
-    private var mMasks:Array<DisplayObject> = new Array<DisplayObject>();
+    private var mMasks = new Vector<DisplayObject>();
     private var mStencilReferenceValue:UInt = 0;
 
     /** Draws a display object into the stencil buffer, incrementing the buffer on each
@@ -661,7 +661,7 @@ class RenderSupport
             ++mDrawCount;
             
             if (mQuadBatches.length <= mCurrentQuadBatchID)
-                mQuadBatches.push(new QuadBatch(/*true*/));
+                mQuadBatches.push(new QuadBatch());
         }
     }
     
@@ -671,7 +671,8 @@ class RenderSupport
         resetMatrix();
         trimQuadBatches();
 
-		mMasks.splice(0, mMasks.length);
+		mMasks.length = 0;
+		//mMasks.splice(0, mMasks.length);
         mCurrentQuadBatchID = 0;
         mBlendMode = BlendMode.NORMAL;
         mDrawCount = 0;
