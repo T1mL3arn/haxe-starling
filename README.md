@@ -28,14 +28,13 @@ Dependencies:
 
 Missing functionality / work in progress:
 -------------------
-* All targets
+* HTML5 and Native targets
   * ATF texture format
 * Native
   * Bitmap Fonts
   * html text styling
   * Sound Triggering
   * Render Texture
-* HTML5 and Native
   * Masks
   * Filters
 
