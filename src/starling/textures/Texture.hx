@@ -489,7 +489,6 @@ class Texture
 			format != Context3DTextureFormat.COMPRESSED && 
 			format != Context3DTextureFormat.COMPRESSED_ALPHA;
 		
-		
 		if (useRectTexture)
 		{
 			actualWidth  = Math.ceil(origWidth  - 0.000000001); // avoid floating point errors
@@ -504,7 +503,13 @@ class Texture
 		{
 			actualWidth  = StarlingUtils.getNextPowerOfTwo(origWidth);
 			actualHeight = StarlingUtils.getNextPowerOfTwo(origHeight);
-
+			#if flash
+				// hack due to wierd bug
+				if (mipMapping) {
+					if (actualWidth < actualHeight) actualWidth = actualHeight;
+					if (actualHeight < actualWidth) actualHeight = actualWidth;
+				}
+			#end
 			nativeTexture = context.createTexture(actualWidth, actualHeight, format,
 												  optimizeForRenderToTexture);
 			#if js 
