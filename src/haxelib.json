@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": [ "starling", "2d", "gpu", "openfl", "flash", "air", "js", "web", "cpp" ],
 	"description": "GPU powered 2D rendering engine which mimics the conventional Flash display list architecture",
-	"version": "0.4.4",
-	"releasenote": "flash hack to fix non square textures that Area mipmaped",
+	"version": "0.4.5",
+	"releasenote": "fix internal blendmode switching which also resolves ATF issue on flash target",
 	"contributors": [ "p.j.shand" ],
 	"dependencies": {
 		
