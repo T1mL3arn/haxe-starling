@@ -35,6 +35,7 @@ class TextureScene extends Scene
 			// display a compressed texture
 			var compressedTexture:Texture = Game.assets.getTexture("compressed_texture");
 			var image:Image = new Image(compressedTexture);
+			image.scaleX = image.scaleY = 0.5;
 			image.x = Constants.CenterX - image.width / 2;
 			//image.alpha = 0.5;
 			image.y = 263;

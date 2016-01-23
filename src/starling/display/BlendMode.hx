@@ -73,7 +73,7 @@ class BlendMode
 	/** Draws under/below existing objects; useful especially on RenderTextures. */
 	public static var BELOW:String = "below";
 	static private var _sBlendFactors:Array<Map<String, BlendFactor>>;
-	static private var lastModeName:String;
+	static private var lastModeIndex:Int = -1;
 	static private var lastModeFactors:Array<Context3DBlendFactor>;
 	
 
@@ -138,29 +138,17 @@ class BlendMode
 	 *  value. Throws an ArgumentError if the mode does not exist. */
 	public static function getBlendFactors(mode:String, premultipliedAlpha:Bool=true):Array<Context3DBlendFactor>
 	{
-		//trace("CHECK");
-		
 		var vec:Array<Map<String, BlendFactor>> = BlendMode.sBlendFactors;
 		var modeIndex:Int = 0;//
 		if (premultipliedAlpha == true) modeIndex = 1;//cast(premultipliedAlpha, Int);
 		var modes:Map<String, BlendFactor> = vec[modeIndex];
 		
-		
-		if (lastModeName != mode) {
-			lastModeFactors = modes.get(mode).factors;
-		}
-		lastModeName = mode;
-		
+		if (lastModeIndex != modeIndex) lastModeFactors = modes.get(mode).factors;
+		lastModeIndex = modeIndex;
 		
 		var returnVal:Array<Context3DBlendFactor> = lastModeFactors;
 		if (returnVal == null) throw new ArgumentError("Invalid blend mode");
 		return returnVal;
-		
-		/*if (mode in modes) return modes[mode];
-		else {
-			throw new ArgumentError("Invalid blend mode");
-		}
-		return null;*/
 	}
 	
 	/** Registeres a blending mode under a certain name and for a certain premultiplied alpha
