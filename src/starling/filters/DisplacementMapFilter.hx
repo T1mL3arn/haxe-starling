@@ -48,8 +48,8 @@ class DisplacementMapFilter extends FragmentFilter
 {
     private var mMapTexture:Texture;
     private var mMapPoint:Point;
-    private var mComponentX:UInt;
-    private var mComponentY:UInt;
+    private var mComponentX:Int;
+    private var mComponentY:Int;
     private var mScaleX:Float;
     private var mScaleY:Float;
     private var mRepeat:Bool;
