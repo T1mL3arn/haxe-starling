@@ -75,6 +75,7 @@ class BlendMode
 	static private var _sBlendFactors:Array<Map<String, BlendFactor>>;
 	static private var lastModeIndex:Int = -1;
 	static private var lastModeFactors:Array<Context3DBlendFactor>;
+	static private var lastMode:String;
 	
 
 	static function get_sBlendFactors():Array<Map<String, BlendFactor>>
@@ -143,8 +144,11 @@ class BlendMode
 		if (premultipliedAlpha == true) modeIndex = 1;//cast(premultipliedAlpha, Int);
 		var modes:Map<String, BlendFactor> = vec[modeIndex];
 		
-		if (lastModeIndex != modeIndex) lastModeFactors = modes.get(mode).factors;
+		if (lastModeIndex != modeIndex || lastMode != mode) {
+			lastModeFactors = modes.get(mode).factors;
+		}
 		lastModeIndex = modeIndex;
+		lastMode = mode;
 		
 		var returnVal:Array<Context3DBlendFactor> = lastModeFactors;
 		if (returnVal == null) throw new ArgumentError("Invalid blend mode");
