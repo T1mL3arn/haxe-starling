@@ -66,7 +66,7 @@ class DisplacementMapFilter extends FragmentFilter
 	
     /** Creates a new displacement map filter that uses the provided map texture. */
     public function new(mapTexture:Texture, mapPoint:Point=null, 
-                                          componentX:UInt=0, componentY:UInt=0, 
+                                          componentX:BitmapDataChannel=0, componentY:BitmapDataChannel=0, 
                                           scaleX:Float=0.0, scaleY:Float=0.0,
                                           repeat:Bool=false)
     {
