@@ -219,8 +219,8 @@ class Starling extends EventDispatcher
 	private var mPreviousViewPort:Rectangle;
 	private var mClippedViewPort:Rectangle;
 
-	private var mNativeStage:flash.display.Stage;
-	private var mNativeOverlay:flash.display.Sprite;
+	private var mNativeStage:openfl.display.Stage;
+	private var mNativeOverlay:openfl.display.Sprite;
 	private var mNativeStageContentScaleFactor:Float;
 
 	private static var sCurrent:Starling;
@@ -255,7 +255,7 @@ class Starling extends EventDispatcher
 	public var showStats(get, set):Bool;
 	public var stage(get, null):Stage;
 	public var stage3D(get, null):Stage3D;
-	public var nativeStage(get, null):flash.display.Stage;
+	public var nativeStage(get, null):openfl.display.Stage;
 	public var root(get, null):DisplayObject;
 	public var rootClass(get, set):Class<Dynamic>;
 	public var shareContext(get, set) : Bool;
@@ -294,7 +294,7 @@ class Starling extends EventDispatcher
 	 *                        profile automatically.</li>
 	 *                    </ul>
 	 */
-	public function new(rootClass:Class<Dynamic>, stage:flash.display.Stage, 
+	public function new(rootClass:Class<Dynamic>, stage:openfl.display.Stage, 
 							 viewPort:Rectangle=null, stage3D:Stage3D=null,
 							 renderMode:String="auto", profile:Dynamic=null)
 	{
@@ -1152,7 +1152,7 @@ class Starling extends EventDispatcher
 	private function get_stage3D():Stage3D { return mStage3D; }
 	
 	/** The Flash (2D) stage object Starling renders beneath. */
-	private function get_nativeStage():flash.display.Stage { return mNativeStage; }
+	private function get_nativeStage():openfl.display.Stage { return mNativeStage; }
 	
 	/** The instance of the root class provided in the constructor. Available as soon as 
 	 *  the event 'ROOT_CREATED' has been dispatched. */

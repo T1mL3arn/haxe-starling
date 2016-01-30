@@ -12,9 +12,9 @@
 // Mario Klingemann: http://www.quasimondo.com/archives/000565.php -- THANKS!!!
 
 package starling.filters;
-import flash.display3D.Context3D;
-import flash.display3D.Context3DProgramType;
-import flash.display3D.Program3D;
+import openfl.display3D.Context3D;
+import openfl.display3D.Context3DProgramType;
+import openfl.display3D.Program3D;
 import openfl.errors.ArgumentError;
 #if flash
 import openfl.Vector;

@@ -1,7 +1,6 @@
 package sample;
 
 import haxe.Timer;
-import openfl.display.BitmapData;
 import openfl.text.TextField;
 import openfl.text.TextFieldType;
 import starling.events.EventDispatcher;
@@ -60,9 +59,6 @@ class Main extends Sprite
 	{
 		removeEventListener(openfl.events.Event.ADDED_TO_STAGE, onAddedToStage);
 		start();
-		
-		//var bm:Bitmap = new Bitmap(MiniBitmapFont.getBitmapData());
-		//addChild(bm);
 	}
 
 	private function start():Void
@@ -70,10 +66,6 @@ class Main extends Sprite
 		// We develop the game in a *fixed* coordinate system of 320x480. The game might
 		// then run on a device with a different resolution; for that case, we zoom the
 		// viewPort to the optimal size for any display and load the optimal textures.
-		
-		/*var bmd:BitmapData = Assets.getBitmapData("assets/textures/1x/background.jpg");
-		var bm:Bitmap = new Bitmap(bmd);
-		addChild(bm);*/
 		
 		Starling.multitouchEnabled = true; // for Multitouch Scene
 		Starling.handleLostContext = true; // recommended everywhere when using AssetManager

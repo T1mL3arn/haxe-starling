@@ -1,6 +1,6 @@
 package scenes;
 
-import flash.geom.Point;
+import openfl.geom.Point;
 import openfl.geom.Matrix;
 import openfl.Vector;
 import starling.display.DisplayObject;

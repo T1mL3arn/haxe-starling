@@ -10,7 +10,7 @@
 
 package starling.events;
 
-import flash.geom.Point;
+import openfl.geom.Point;
 import openfl.errors.Error;
 
 import starling.display.DisplayObject;
