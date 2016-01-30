@@ -246,10 +246,10 @@ class ConcreteTexture extends starling.textures.Texture
 	{
 		var context:Context3D = Starling.current.context;
 		var name:String = Type.getClassName(Type.getClass(mBase));
-		if (name == "openfl.display3D.textures.Texture" || name == "openfl.display3D.textures.Texture")
+		if (name == "openfl.display3D.textures.Texture" || name == "flash.display3D.textures.Texture")
 			mBase = context.createTexture(mWidth, mHeight, mFormat, 
 										  mOptimizedForRenderTexture);
-		else if (name == "openfl.display3D.textures.RectangleTexture" || name == "openfl.display3D.textures.RectangleTexture")
+		else if (name == "openfl.display3D.textures.RectangleTexture" || name == "flash.display3D.textures.RectangleTexture")
 			mBase = context.createRectangleTexture(mWidth, mHeight, mFormat,
 													  mOptimizedForRenderTexture);
 		/*else if (name == "openfl.display3D.textures.VideoTexture")
