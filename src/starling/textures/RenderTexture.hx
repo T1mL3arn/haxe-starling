@@ -9,11 +9,11 @@
 // =================================================================================================
 
 package starling.textures;
-import flash.display3D.Context3D;
-import flash.display3D.VertexBuffer3D;
-import flash.display3D.textures.TextureBase;
-import flash.geom.Matrix;
-import flash.geom.Rectangle;
+import openfl.display3D.Context3D;
+import openfl.display3D.VertexBuffer3D;
+import openfl.display3D.textures.TextureBase;
+import openfl.geom.Matrix;
+import openfl.geom.Rectangle;
 import openfl.display3D.Context3DTextureFormat;
 import starling.utils.StarlingUtils;
 

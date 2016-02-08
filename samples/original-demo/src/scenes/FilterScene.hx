@@ -1,7 +1,7 @@
 package scenes;
 
-import flash.display.BitmapData;
-import flash.display.BitmapDataChannel;
+import openfl.display.BitmapData;
+import openfl.display.BitmapDataChannel;
 import openfl.Assets;
 import openfl.display.Bitmap;
 import openfl.Lib;

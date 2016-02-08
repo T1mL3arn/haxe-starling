@@ -10,7 +10,7 @@
 
 package starling.textures;
 
-import flash.events.Event;
+import openfl.events.Event;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
 import openfl.display3D.Context3D;
@@ -305,7 +305,7 @@ class Texture
 		var context:Context3D = Starling.current.context;
 		if (context == null) throw new MissingContextError();
 		var atfData:AtfData = new AtfData(data);
-		var nativeTexture:flash.display3D.textures.Texture = context.createTexture(
+		var nativeTexture:openfl.display3D.textures.Texture = context.createTexture(
 			atfData.width, atfData.height, atfData.format, false);
 		var concreteTexture = new ConcreteTexture(nativeTexture, atfData.format,
 			atfData.width, atfData.height, useMipMaps && atfData.numTextures > 1,
@@ -638,4 +638,4 @@ class Texture
 	}
 }
 
-typedef TextureFunction = Dynamic -> Void;
+typedef TextureFunction = Dynamic;

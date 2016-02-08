@@ -1,6 +1,6 @@
 package scenes;
 
-import flash.media.Sound;
+import openfl.media.Sound;
 import openfl.Vector;
 
 import starling.core.Starling;

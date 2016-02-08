@@ -9,20 +9,19 @@
 // =================================================================================================
 
 package starling.display;
-import flash.errors.ArgumentError;
-import flash.errors.IllegalOperationError;
-import flash.geom.Matrix;
-import flash.geom.Matrix3D;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.geom.Vector3D;
-import flash.system.Capabilities;
-import flash.ui.Mouse;
+import openfl.errors.ArgumentError;
+import openfl.errors.IllegalOperationError;
+import openfl.geom.Matrix;
+import openfl.geom.Matrix3D;
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
+import openfl.geom.Vector3D;
+import openfl.system.Capabilities;
+import openfl.ui.Mouse;
 #if flash
 import flash.ui.MouseCursor;
 #end
 import openfl.errors.Error;
-//import flash.utils.getQualifiedClassName;
 
 import starling.core.RenderSupport;
 import starling.core.Starling;

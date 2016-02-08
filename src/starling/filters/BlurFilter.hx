@@ -9,9 +9,9 @@
 // =================================================================================================
 
 package starling.filters;
-import flash.display3D.Context3D;
-import flash.display3D.Context3DProgramType;
-import flash.display3D.Program3D;
+import openfl.display3D.Context3D;
+import openfl.display3D.Context3DProgramType;
+import openfl.display3D.Program3D;
 import openfl.Vector;
 
 import starling.core.Starling;

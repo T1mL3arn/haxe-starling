@@ -1,6 +1,6 @@
 package scenes;
 
-import flash.system.System;
+import openfl.system.System;
 import sample.Main;
 import starling.textures.Texture;
 

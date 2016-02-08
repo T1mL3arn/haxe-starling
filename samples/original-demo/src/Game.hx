@@ -1,7 +1,7 @@
 package;
 
-import flash.system.System;
-import flash.ui.Keyboard;
+import openfl.system.System;
+import openfl.ui.Keyboard;
 import openfl.Assets;
 import scenes.AnimationScene;
 import scenes.BatchBenchmarkScene;

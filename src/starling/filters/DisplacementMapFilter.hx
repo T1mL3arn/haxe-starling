@@ -9,15 +9,15 @@
 // =================================================================================================
 
 package starling.filters;
-import flash.display.BitmapDataChannel;
-import flash.display3D.Context3D;
-import flash.display3D.Context3DProgramType;
-import flash.display3D.Context3DTextureFormat;
-import flash.display3D.Context3DVertexBufferFormat;
-import flash.display3D.Program3D;
-import flash.display3D.VertexBuffer3D;
-import flash.geom.Matrix3D;
-import flash.geom.Point;
+import openfl.display.BitmapDataChannel;
+import openfl.display3D.Context3D;
+import openfl.display3D.Context3DProgramType;
+import openfl.display3D.Context3DTextureFormat;
+import openfl.display3D.Context3DVertexBufferFormat;
+import openfl.display3D.Program3D;
+import openfl.display3D.VertexBuffer3D;
+import openfl.geom.Matrix3D;
+import openfl.geom.Point;
 import openfl.display3D.Context3DMipFilter;
 import openfl.display3D.Context3DTextureFilter;
 import openfl.display3D.Context3DWrapMode;
