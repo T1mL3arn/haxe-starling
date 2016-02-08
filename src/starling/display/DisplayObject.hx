@@ -19,7 +19,7 @@ import openfl.geom.Vector3D;
 import openfl.system.Capabilities;
 import openfl.ui.Mouse;
 #if flash
-import openfl.ui.MouseCursor;
+import flash.ui.MouseCursor;
 #end
 import openfl.errors.Error;
 

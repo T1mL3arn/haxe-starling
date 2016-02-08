@@ -638,4 +638,4 @@ class Texture
 	}
 }
 
-typedef TextureFunction = Dynamic -> Void;
+typedef TextureFunction = Dynamic;
