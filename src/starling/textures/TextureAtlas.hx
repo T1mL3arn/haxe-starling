@@ -132,13 +132,11 @@ class TextureAtlas
         {
 			
         }*/
-		trace("parseAtlasXml");
 	}
 	
 	/** Retrieves a SubTexture by name. Returns <code>null</code> if it is not found. */
 	public function getTexture(name:String):Texture
 	{
-		trace("mSubTextures.exists(name) = " + mSubTextures.exists(name));
 		return mSubTextures.get(name);
 	}
 	
@@ -214,7 +212,6 @@ class TextureAtlas
 	public function addRegion(name:String, region:Rectangle, frame:Rectangle=null,
 							  rotated:Bool=false):Void
 	{
-		trace("addRegion: " + name);
 		mSubTextures.set(name, new SubTexture(mAtlasTexture, region, false, frame, rotated));
 		mSubTextureNames = null;
 	}
