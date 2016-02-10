@@ -354,7 +354,8 @@ class Starling extends EventDispatcher
 		{
 			mProfile = profile;
 			mShareContext = true;
-			stage3D.addEventListener(Event.CONTEXT3D_CREATE, onCreatedInitialize, false, 100);
+			if (stage3D.context3D != null) Timer.delay(initialize, 1);
+			else stage3D.addEventListener(Event.CONTEXT3D_CREATE, onCreatedInitialize, false, 100);
 		}
 		else
 		{
