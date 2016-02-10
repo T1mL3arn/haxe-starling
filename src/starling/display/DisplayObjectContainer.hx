@@ -179,17 +179,13 @@ class DisplayObjectContainer extends DisplayObject
 			
 			if (stage != null)
 			{
-				var container:DisplayObjectContainer = null;
-				try { container = cast child; }
-				catch (e:Error) { }
-				
-				if (container != null) {
-					//trace("container = " + container);
-					//trace("container.broadcastEventWith = " + container.broadcastEventWith);
-					
-					container.broadcastEventWith(Event.REMOVED_FROM_STAGE);
+				var isDisplayObjectContainer:Bool = Std.is(child, DisplayObjectContainer);
+				if (isDisplayObjectContainer)
+				{
+					var container:DisplayObjectContainer = cast(child, DisplayObjectContainer);
+					container.broadcastEventWith(Event.ADDED_TO_STAGE);
 				}
-				else child.dispatchEventWith(Event.REMOVED_FROM_STAGE);
+				else child.dispatchEventWith(Event.ADDED_TO_STAGE);
 			}
 			
 			child.setParent(null);
