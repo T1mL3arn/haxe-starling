@@ -4,9 +4,9 @@
 	"license": "MIT",
 	"tags": [ "starling", "2d", "gpu", "openfl", "flash", "air", "js", "web", "cpp" ],
 	"description": "GPU powered 2D rendering engine which mimics the conventional Flash display list architecture",
-	"version": "0.4.9",
-	"releasenote": "Shared context fix",
-	"contributors": [ "p.j.shand" ],
+	"version": "0.5.0",
+	"releasenote": "removeChild event dispatchment fix",
+	"contributors": [ "p.j.shand", "tbyrne" ],
 	"dependencies": {
 		
 	}
