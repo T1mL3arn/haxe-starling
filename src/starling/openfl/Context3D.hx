@@ -112,7 +112,7 @@ import openfl.Lib;
 		
 		stage.addChildAt(ogl, 0);
 		
-		#if js
+		#if (js || cpp)
 		GL.pixelStorei (GL.UNPACK_FLIP_Y_WEBGL, 1);
 		GL.pixelStorei (GL.UNPACK_PREMULTIPLY_ALPHA_WEBGL, 1);
 		#end
@@ -131,7 +131,7 @@ import openfl.Lib;
 		#if (cpp || neko || nodejs)
 		GL.depthMask (true);
 		#end
-		#if js
+		#if (js || cpp)
 		if (scissorRectangle != null) GL.disable(GL.SCISSOR_TEST);
 		#end
 		GL.clearColor (red, green, blue, alpha);
@@ -140,7 +140,7 @@ import openfl.Lib;
 		
 		GL.clear (mask);
 		
-		#if js
+		#if (js || cpp)
 		if (scissorRectangle != null) GL.enable(GL.SCISSOR_TEST);
 		#end
 	}

@@ -66,7 +66,7 @@ class DisplacementMapFilter extends FragmentFilter
 	
     /** Creates a new displacement map filter that uses the provided map texture. */
     public function new(mapTexture:Texture, mapPoint:Point=null, 
-                                          componentX:BitmapDataChannel=0, componentY:BitmapDataChannel=0, 
+                                          componentX:Int=0, componentY:Int=0, 
                                           scaleX:Float=0.0, scaleY:Float=0.0,
                                           repeat:Bool=false)
     {
@@ -232,15 +232,15 @@ class DisplacementMapFilter extends FragmentFilter
 
     /** Describes which color channel to use in the map image to displace the x result. 
      *  Possible values are constants from the BitmapDataChannel class. */
-    public var componentX(get, set):UInt;
-    private function get_componentX():UInt { return mComponentX; }
-    private function set_componentX(value:UInt):UInt { return mComponentX = value; }
+    public var componentX(get, set):Int;
+    private function get_componentX():Int { return mComponentX; }
+    private function set_componentX(value:Int):Int { return mComponentX = value; }
 
     /** Describes which color channel to use in the map image to displace the y result. 
      *  Possible values are constants from the BitmapDataChannel class. */
-    public var componentY(get, set):UInt;
-    private function get_componentY():UInt { return mComponentY; }
-    private function set_componentY(value:UInt):UInt { return mComponentY = value; }
+    public var componentY(get, set):Int;
+    private function get_componentY():Int { return mComponentY; }
+    private function set_componentY(value:Int):Int { return mComponentY = value; }
 
     /** The multiplier used to scale the x displacement result from the map calculation. */
     public var scaleX(get, set):Float;

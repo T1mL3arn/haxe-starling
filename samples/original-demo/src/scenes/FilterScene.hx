@@ -68,13 +68,7 @@ class FilterScene extends Scene
 		];
 		var displacementMap = Texture.fromBitmapData(Assets.getBitmapData("assets/textures/perlinNoise.png"), false, false, scale);
 		
-		displacementFilter = new DisplacementMapFilter(
-			displacementMap, 
-			null,
-			BitmapDataChannel.RED, 
-			BitmapDataChannel.GREEN, 
-			25, 25
-		);
+		displacementFilter = new DisplacementMapFilter(displacementMap, null,BitmapDataChannel.RED, BitmapDataChannel.GREEN, 25, 25);
 		mFilterInfos.push(["Displacement Map", displacementFilter]);
 		
 		var invertFilter:ColorMatrixFilter = new ColorMatrixFilter();
