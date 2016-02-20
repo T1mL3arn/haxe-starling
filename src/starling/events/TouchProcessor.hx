@@ -115,9 +115,10 @@ class TouchProcessor
 		// remove old taps
 		if (mLastTaps.length > 0)
 		{
+			var len = mLastTaps.length;
 			for (j in 0...mLastTaps.length) 
 			{
-				var i = mLastTaps.length - 1 - j;
+				var i = len - 1 - j;
 				if (mElapsedTime - mLastTaps[i].timestamp > mMultitapTime)
 					mLastTaps.splice(i, 1);
 			}

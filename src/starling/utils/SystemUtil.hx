@@ -167,6 +167,11 @@ class SystemUtil
 	 *  applications (not the Flash Player). */
 	public static function get_supportsVideoTexture():Bool
 	{
-		return Type.getInstanceFields(Context3D).indexOf("supportsVideoTexture") != -1;
+		try {
+			return Reflect.getProperty(Context3D, "supportsVideoTexture");
+		}catch (e:Dynamic) {
+			return false;
+		}
+		//return Type.getInstanceFields(Context3D).indexOf("supportsVideoTexture") != -1;
 	}
 }

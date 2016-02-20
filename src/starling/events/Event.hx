@@ -68,7 +68,7 @@ class Event
 	/** Event type that is dispatched by the Starling instance when it encounters a problem
 	 *  from which it cannot recover, e.g. a lost device context. */
 	public static var FATAL_ERROR:String = "fatalError";
-
+	
 	/** An event type to be utilized in custom events. Not used by Starling right now. */
 	public static var CHANGE:String = "change";
 	/** An event type to be utilized in custom events. Not used by Starling right now. */

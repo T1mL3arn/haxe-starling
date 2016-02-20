@@ -116,6 +116,7 @@ import starling.utils.VertexData;
 
 class Texture
 {
+	static private var TEXTURE_READY:String = "textureReady"; // for backwards compatibility
 	
 
 	public var frame(get, null):Rectangle;
@@ -382,11 +383,13 @@ class Texture
 	{
 		return fromVideoAttachment("Camera", camera, scale, onComplete);
 	}*/
-
+	
+	private static var onCompleteLookup:Map<TextureBase, TextureFunction> = new Map();
+	private static var textureLookup:Map<TextureBase, ConcreteVideoTexture> = new Map();
 	private static function fromVideoAttachment(type:String, attachment:Dynamic,
 												scale:Float, onComplete:TextureFunction):Texture
 	{
-		var TEXTURE_READY:String = "textureReady"; // for backwards compatibility
+		
 
 		if (!SystemUtil.supportsVideoTexture)
 			throw new NotSupportedError("Video Textures are not supported on this platform");
@@ -399,29 +402,33 @@ class Texture
 		var baseFunc:Dynamic = Reflect.getProperty(base, "attach" + type);
 		Reflect.callMethod(base, baseFunc, [attachment]); // base["attach" + type](attachment);
 		
-		
-		
 		var texture:ConcreteVideoTexture = new ConcreteVideoTexture(base, scale);
 		texture.onRestore = function():Void
 		{
 			texture.root.attachVideo(type, attachment);
 		};
 		
-		//base.addEventListener(TEXTURE_READY, OnTextureReady);
-		base.addEventListener(TEXTURE_READY, function(event:Dynamic):Void
-		{
-			//base.removeEventListener(TEXTURE_READY, OnTextureReady);
-			StarlingUtils.execute(onComplete, [texture]);
-		});
+		onCompleteLookup.set(base, onComplete);
+		textureLookup.set(base, texture);
+		
+		base.addEventListener(TEXTURE_READY, OnTextureReady);
 		
 		return texture;
 	}
 	
-	/*private static function OnTextureReady(event:Dynamic):Void 
+	private static function OnTextureReady(event:Event):Void 
 	{
+		var base:TextureBase = event.target;
 		base.removeEventListener(TEXTURE_READY, OnTextureReady);
-		StarlingUtils.execute(onComplete, texture);
-	}*/
+		
+		var onComplete:TextureFunction = onCompleteLookup.get(base);
+		onCompleteLookup.remove(base);
+		
+		var texture:ConcreteVideoTexture = textureLookup.get(base);
+		textureLookup.remove(base);
+		
+		StarlingUtils.execute(onComplete, [texture]);
+	}
 
 	/** Creates a texture with a certain size and color.
 	 *
@@ -638,4 +645,4 @@ class Texture
 	}
 }
 
-typedef TextureFunction = Dynamic -> Void;
+typedef TextureFunction = Dynamic;

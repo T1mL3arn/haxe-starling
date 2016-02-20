@@ -229,7 +229,7 @@ class Starling extends EventDispatcher
 	private static var sAll = new Array<Starling>();
 	var profiles:Array<Context3DProfile>;
 	var currentProfile:Context3DProfile;
-	var tempRenderMode:String;
+	var tempRenderMode:Context3DRenderMode;
 	private var stageWidth:Int;
 	private var stageHeight:Int;
 	private var statsHAlign:HAlign;
@@ -296,11 +296,12 @@ class Starling extends EventDispatcher
 	 */
 	public function new(rootClass:Class<Dynamic>, stage:openfl.display.Stage, 
 							 viewPort:Rectangle=null, stage3D:Stage3D=null,
-							 renderMode:String="auto", profile:Dynamic=null)
+							 renderMode:Context3DRenderMode=null, profile:Context3DProfile=null)
 	{
 		super();
 		
-		if (profile == null) profile = Context3DProfile.BASELINE_CONSTRAINED;
+		if (renderMode == null) renderMode = Context3DRenderMode.AUTO;
+		//if (profile == null) profile = Context3DProfile.BASELINE_CONSTRAINED;
 		if (stage == null) throw new ArgumentError("Stage must not be null");
 		if (viewPort == null) viewPort = new Rectangle(0, 0, stage.stageWidth, stage.stageHeight);
 		if (stage3D == null) stage3D = stage.stage3Ds[0];
@@ -351,17 +352,10 @@ class Starling extends EventDispatcher
 		
 		if (mStage3D.context3D != null && mStage3D.context3D.driverInfo != "Disposed")
 		{
-			if (profile == "auto" || Std.is(profile, Array))
-				throw new ArgumentError("When sharing the context3D, " +
-					"the actual profile has to be supplied");
-			else {
-				//mProfile = "profile" in mStage3D.context3D ? mStage3D.context3D["profile"] : cast profile;
-				mProfile = Reflect.hasField(mStage3D.context3D, "profile") ? Reflect.getProperty(mStage3D.context3D, "profile") : cast profile;
-			}
-			
+			mProfile = profile;
 			mShareContext = true;
-			Timer.delay(initialize, 1); //Lib.setTimeout(initialize, 1); // we don't call it right away, because Starling should
-									   // behave the same way with or without a shared context
+			if (stage3D.context3D != null) Timer.delay(initialize, 1);
+			else stage3D.addEventListener(Event.CONTEXT3D_CREATE, onCreatedInitialize, false, 100);
 		}
 		else
 		{
@@ -372,6 +366,11 @@ class Starling extends EventDispatcher
 			mShareContext = false;
 			requestContext3D(stage3D, renderMode, profile);
 		}
+	}
+	
+	private function onCreatedInitialize(e:Event):Void 
+	{
+		initialize();
 	}
 	
 	/** Disposes all children of the stage and the render context; removes all registered
@@ -410,7 +409,7 @@ class Starling extends EventDispatcher
 	
 	// functions
 	
-	private function requestContext3D(stage3D:Stage3D, renderMode:String, profile:Dynamic):Void
+	private function requestContext3D(stage3D:Stage3D, renderMode:Context3DRenderMode, profile:Context3DProfile):Void
 	{
 		tempRenderMode = renderMode;
 		profiles = null;
@@ -418,36 +417,12 @@ class Starling extends EventDispatcher
 		trace(profile);
 		trace(Type.getClass(profile));
 		var type:Class<Dynamic> = Type.getClass(profile);
-		/*if (type == String) {
-			if (profile == "auto") {
-				profiles = [Context3DProfile.STANDARD, Context3DProfile.BASELINE_CONSTRAINED, Context3DProfile.BASELINE_EXTENDED, Context3DProfile.BASELINE, Context3DProfile.BASELINE_CONSTRAINED];
-			}
-			else {
-				var context3DProfile:Context3DProfile = cast(profile);
-				profiles = [context3DProfile];
-			}
-		}*/
 		
-		if (profile == "auto" || profile == null) {
+		if (profile == null) {
 			profiles = [Context3DProfile.BASELINE_EXTENDED, Context3DProfile.BASELINE_EXTENDED, Context3DProfile.BASELINE, Context3DProfile.BASELINE_CONSTRAINED];
 		}
-		else if (Std.is(profile, Context3DProfile)) {
-			profiles = [cast(profile, Context3DProfile)];
-		}
-		else if (type == String) {
-			var context3DProfile:Context3DProfile = cast(profile);
-			profiles = [context3DProfile];
-		}
-		else if (type == Array) {
-			profiles = cast (profile);
-		}
-		
-		/*else if (Std.is(profile, Context3DProfile))
-			profiles = [cast(profile, Context3DProfile)];
-		else if (Std.is(profile, Array))
-			profiles = cast (profile);*/
 		else {
-			throw new ArgumentError("Profile must be of type 'Context3DProfile', 'String', or 'Array'");
+			profiles = [profile];
 		}
 		
 		mStage3D.addEventListener(Event.CONTEXT3D_CREATE, onCreated, false, 100);
@@ -489,7 +464,7 @@ class Starling extends EventDispatcher
 		#if js
 			auto = Context3DRenderMode.AUTO.getName();
 		#end
-		if (tempRenderMode == auto && profiles.length != 0 && context.driverInfo.indexOf("Software") != -1)
+		if (tempRenderMode == null && profiles.length != 0 && context.driverInfo.indexOf("Software") != -1)
 		{
 			onError(event);
 		}
@@ -531,6 +506,7 @@ class Starling extends EventDispatcher
 	private function initializeGraphicsAPI():Void
 	{
 		mContext = cast mStage3D.context3D;
+		
 		mContext.enableErrorChecking = mEnableErrorChecking;
 		contextData[PROGRAM_DATA_NAME] = new Map<String, Dynamic>();
 		
@@ -677,15 +653,8 @@ class Starling extends EventDispatcher
 										 enableDepthAndStencil:Bool,
 										 wantsBestResolution:Bool=false):Void
 	{
-		// CHECK
-		//enableDepthAndStencil &&= SystemUtil.supportsDepthAndStencil;
 		if (enableDepthAndStencil && SystemUtil.supportsDepthAndStencil) enableDepthAndStencil = true;
 		else enableDepthAndStencil = false;
-		
-		//var configureBackBuffer:StarlingFunction = mContext.configureBackBuffer;
-		//var methodArgs:Array<Dynamic> = [width, height, antiAlias, enableDepthAndStencil];
-		//if (configureBackBuffer.length > 4) methodArgs.push(wantsBestResolution);
-		//trace("configureBackBuffer = " + configureBackBuffer);
 		mContext.configureBackBuffer(width, height, antiAlias, enableDepthAndStencil);
 	}
 
@@ -1305,6 +1274,8 @@ typedef StarlingFunction = Dynamic;
 typedef Context3D = starling.openfl.Context3D;
 typedef AGLSLParser = starling.openfl.AGLSLParser;
 typedef Mapping = starling.openfl.Mapping;
+//typedef Mapping = starling.openfl.Context3DProfile;
+
 
 #if cpp
 typedef Texture = starling.openfl.Texture;
