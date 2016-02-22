@@ -450,13 +450,7 @@ class BitmapFont
 							mostRightX = charLocation.x + char.width;
 						}
 					}
-					
-					if (i == numChars - 1)
-					{
-						sLines[sLines.length] = currentLine; // push
-						finished = true;
-					}
-					else if (lineFull)
+					if (lineFull)
 					{
 						sLines[sLines.length] = currentLine; // push
 						if (lastWhiteSpace == i)
@@ -482,6 +476,12 @@ class BitmapFont
 						{
 							break;
 						}
+					}
+					
+					if (i == numChars - 1)
+					{
+						sLines[sLines.length] = currentLine; // push
+						finished = true;
 					}
 				} // for each char
 			} // if (mLineHeight <= containerHeight)
