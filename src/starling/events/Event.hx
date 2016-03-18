@@ -83,6 +83,7 @@ class Event
 	public static var SELECT:String = "select";
 	/** An event type to be utilized in custom events. Not used by Starling right now. */
 	public static var READY:String = "ready";
+	public static var FOCUS_CHANGE:String = "focusChange";
 	
 	private static var sEventPool = new Array<Event>();
 	
@@ -130,7 +131,7 @@ class Event
 	public function toString():String
 	{
 		var name:String = Type.getClassName(Type.getClass(this));
-		trace("CHECK name = " + name.split(".").pop());
+		//trace("CHECK name = " + name.split(".").pop());
 		
 		return StarlingUtils.formatString("[{0} type=\"{1}\" bubbles={2}]", 
 			[cast name.split(".").pop(), mType, mBubbles]);
