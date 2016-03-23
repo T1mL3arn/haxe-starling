@@ -105,6 +105,7 @@ class Event
 	
 	/*internal*/
 	public var stopsImmediatePropagation(get, null):Bool;
+	static public inline var FOCUS_CHANGE:String = "focusChange";
 	
 	/** Creates an event object that can be passed to listeners. */
 	public function new(type:String, bubbles:Bool=false, data:Dynamic=null)

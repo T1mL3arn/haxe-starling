@@ -1,5 +1,6 @@
 package sample;
 
+import flash.display3D.Context3DRenderMode;
 import haxe.Timer;
 import openfl.text.TextField;
 import openfl.text.TextFieldType;
@@ -71,7 +72,7 @@ class Main extends Sprite
 		Starling.handleLostContext = true; // recommended everywhere when using AssetManager
 		RenderTexture.optimizePersistentBuffers = true; // should be safe on Desktop
 
-		mStarling = new Starling(Game, stage, null, null, "auto", "baselineExtended");
+		mStarling = new Starling(Game, stage, null, null,Context3DRenderMode.AUTO, Context3DProfile.BASELINE_CONSTRAINED);
 		mStarling.antiAliasing = 2;
 		mStarling.simulateMultitouch = false;
 		//mStarling.enableErrorChecking = Capabilities.isDebugger;
