@@ -910,6 +910,18 @@ class TextField extends DisplayObjectContainer
 		return bitmapFonts[name.toLowerCase()];
 	}
 	
+	public function charIdAt(location:Point):Int
+	{
+		var bitmapFont:BitmapFont = getBitmapFont(mFontName);		
+		return bitmapFont.getCharIdAtPoint( location );
+	}
+	
+	public function getCharPos(id:Int):Point
+	{
+		var bitmapFont:BitmapFont = getBitmapFont(mFontName);		
+		return bitmapFont.getCharPosition( id );
+	}
+	
 	/** Stores the currently available bitmap fonts. Since a bitmap font will only work
 	 *  in one Stage3D context, they are saved in Starling's 'contextData' property. */
 	private static function get_bitmapFonts():Map<String, BitmapFont>
