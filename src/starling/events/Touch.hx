@@ -171,18 +171,18 @@ class Touch
 	// properties
 	
 	/** The identifier of a touch. '0' for mouse events, an increasing number for touches. */
-	public function get_id():Int { return mID; }
+	private function get_id():Int { return mID; }
 	
 	/** The previous x-position of the touch in stage coordinates. */
-	public function get_previousGlobalX():Float { return mPreviousGlobalX; }
+	private function get_previousGlobalX():Float { return mPreviousGlobalX; }
 	
 	/** The previous y-position of the touch in stage coordinates. */
-	public function get_previousGlobalY():Float { return mPreviousGlobalY; }
+	private function get_previousGlobalY():Float { return mPreviousGlobalY; }
 
 	/** The x-position of the touch in stage coordinates. If you change this value,
 	 *  the previous one will be moved to "previousGlobalX". */
-	public function get_globalX():Float { return mGlobalX; }
-	public function set_globalX(value:Float):Float
+	private function get_globalX():Float { return mGlobalX; }
+	private function set_globalX(value:Float):Float
 	{
 		mPreviousGlobalX = mGlobalX != mGlobalX ? value : mGlobalX; // isNaN check
 		return mGlobalX = value;
@@ -190,8 +190,8 @@ class Touch
 
 	/** The y-position of the touch in stage coordinates. If you change this value,
 	 *  the previous one will be moved to "previousGlobalY". */
-	public function get_globalY():Float { return mGlobalY; }
-	public function set_globalY(value:Float):Float
+	private function get_globalY():Float { return mGlobalY; }
+	private function set_globalY(value:Float):Float
 	{
 		mPreviousGlobalY = mGlobalY != mGlobalY ? value : mGlobalY; // isNaN check
 		return mGlobalY = value;
@@ -199,16 +199,16 @@ class Touch
 	
 	/** The number of taps the finger made in a short amount of time. Use this to detect 
 	 *  double-taps / double-clicks, etc. */ 
-	public function get_tapCount():Int { return mTapCount; }
-	public function set_tapCount(value:Int):Int { return mTapCount = value; }
+	private function get_tapCount():Int { return mTapCount; }
+	private function set_tapCount(value:Int):Int { return mTapCount = value; }
 	
 	/** The current phase the touch is in. @see TouchPhase */
-	public function get_phase():String { return mPhase; }
-	public function set_phase(value:String):String { return mPhase = value; }
+	private function get_phase():String { return mPhase; }
+	private function set_phase(value:String):String { return mPhase = value; }
 	
 	/** The display object at which the touch occurred. */
-	public function get_target():DisplayObject { return mTarget; }
-	public function set_target(value:DisplayObject):DisplayObject
+	private function get_target():DisplayObject { return mTarget; }
+	private function set_target(value:DisplayObject):DisplayObject
 	{
 		if (mTarget != value)
 		{
@@ -219,28 +219,28 @@ class Touch
 	}
 	
 	/** The moment the touch occurred (in seconds since application start). */
-	public function get_timestamp():Float { return mTimestamp; }
-	public function set_timestamp(value:Float):Float { return mTimestamp = value; }
+	private function get_timestamp():Float { return mTimestamp; }
+	private function set_timestamp(value:Float):Float { return mTimestamp = value; }
 	
 	/** A value between 0.0 and 1.0 indicating force of the contact with the device. 
 	 *  If the device does not support detecting the pressure, the value is 1.0. */ 
-	public function get_pressure():Float { return mPressure; }
-	public function set_pressure(value:Float):Float { return mPressure = value; }
+	private function get_pressure():Float { return mPressure; }
+	private function set_pressure(value:Float):Float { return mPressure = value; }
 	
 	/** Width of the contact area. 
 	 *  If the device does not support detecting the pressure, the value is 1.0. */
-	public function get_width():Float { return mWidth; }
-	public function set_width(value:Float):Float { return mWidth = value; }
+	private function get_width():Float { return mWidth; }
+	private function set_width(value:Float):Float { return mWidth = value; }
 	
 	/** Height of the contact area. 
 	 *  If the device does not support detecting the pressure, the value is 1.0. */
-	public function get_height():Float { return mHeight; }
-	public function set_height(value:Float):Float { return mHeight = value; }
+	private function get_height():Float { return mHeight; }
+	private function set_height(value:Float):Float { return mHeight = value; }
 
 	/** Indicates if the touch has been cancelled, which may happen when the app moves into
 	 *  the background ('Event.DEACTIVATE'). @default false */
-	public function get_cancelled():Bool { return mCancelled; }
-	public function set_cancelled(value:Bool):Bool { return mCancelled = value; }
+	private function get_cancelled():Bool { return mCancelled; }
+	private function set_cancelled(value:Bool):Bool { return mCancelled = value; }
 
 	// internal methods
 	
@@ -253,7 +253,7 @@ class Touch
 	}
 	
 	/** @private */
-	public function get_bubbleChain():Array<EventDispatcher>
+	private function get_bubbleChain():Array<EventDispatcher>
 	{
 		return mBubbleChain.concat([]);
 	}
