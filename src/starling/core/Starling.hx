@@ -494,6 +494,10 @@ class Starling extends EventDispatcher
 	
 	private function initialize():Void
 	{
+		if (mStage3D.context3D == null) {
+			stage3D.addEventListener(Event.CONTEXT3D_CREATE, onCreatedInitialize, false, 100);
+			return;
+		}
 		makeCurrent();
 		
 		initializeGraphicsAPI();
@@ -506,12 +510,11 @@ class Starling extends EventDispatcher
 	private function initializeGraphicsAPI():Void
 	{
 		mContext = cast mStage3D.context3D;
-		
 		mContext.enableErrorChecking = mEnableErrorChecking;
 		contextData[PROGRAM_DATA_NAME] = new Map<String, Dynamic>();
 		
-		trace("[Starling] Initialization complete.");
-		trace("[Starling] Display Driver:", mContext.driverInfo);
+		//trace("[Starling] Initialization complete.");
+		//trace("[Starling] Display Driver:", mContext.driverInfo);
 		
 		#if flash
 			mNativeStage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);

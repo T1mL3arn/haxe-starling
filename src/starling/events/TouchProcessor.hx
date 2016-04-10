@@ -110,8 +110,9 @@ class TouchProcessor
 		var touch:Touch;
 		
 		mElapsedTime += passedTime;
-		sUpdatedTouches.splice(0, sUpdatedTouches.length);
-		
+		if (sUpdatedTouches.length != 0){
+			sUpdatedTouches.splice(0, sUpdatedTouches.length);
+		}
 		// remove old taps
 		if (mLastTaps.length > 0)
 		{
@@ -154,8 +155,9 @@ class TouchProcessor
 				if (mCurrentTouches[m].phase == TouchPhase.ENDED)
 					mCurrentTouches.splice(m, 1);
 			}
-			
-			sUpdatedTouches.splice(0, sUpdatedTouches.length);
+			if (sUpdatedTouches.length != 0){
+				sUpdatedTouches.splice(0, sUpdatedTouches.length);
+			}
 		}
 	}
 	

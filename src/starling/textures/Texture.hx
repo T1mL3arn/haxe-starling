@@ -489,7 +489,6 @@ class Texture
 		var origWidth:Int  = Std.int(width  * scale);
 		var origHeight:Int = Std.int(height * scale);
 		
-		
 		var useRectTexture:Bool = !mipMapping && !repeat &&
 			Starling.current.profile != Context3DProfile.BASELINE_CONSTRAINED &&
 			Reflect.hasField(context, "createRectangleTexture") && 
