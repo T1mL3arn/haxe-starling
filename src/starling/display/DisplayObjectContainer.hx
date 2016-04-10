@@ -417,12 +417,14 @@ class DisplayObjectContainer extends DisplayObject
 		var fromIndex:Int = sBroadcastListeners.length;
 		sBroadcastListeners = getChildEventListeners(this, event.type, sBroadcastListeners);
 		var toIndex:Int = sBroadcastListeners.length;
+		if (toIndex <= 0) return;
 		
 		var i:Int = toIndex - 1;
-		while (i >= fromIndex) 
+		while (i > fromIndex) 
 		{
 			sBroadcastListeners[i].dispatchEvent(event);
 			sBroadcastListeners.splice(i, 1);
+			i--;
 		}
 		/*for (i in fromIndex...toIndex) {
 			sBroadcastListeners[i].dispatchEvent(event);
