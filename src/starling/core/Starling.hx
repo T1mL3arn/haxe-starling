@@ -513,8 +513,8 @@ class Starling extends EventDispatcher
 		mContext.enableErrorChecking = mEnableErrorChecking;
 		contextData[PROGRAM_DATA_NAME] = new Map<String, Dynamic>();
 		
-		trace("[Starling] Initialization complete.");
-		trace("[Starling] Display Driver:", mContext.driverInfo);
+		//trace("[Starling] Initialization complete.");
+		//trace("[Starling] Display Driver:", mContext.driverInfo);
 		
 		#if flash
 			mNativeStage.addEventListener(Event.ENTER_FRAME, onEnterFrame, false, 0, true);

@@ -80,7 +80,6 @@ import openfl.Lib;
 	public function new () {
 		
 		disposed = false;
-		trace("starling.openfl.Context3D");
 		stencilCompareMode = Context3DCompareMode.ALWAYS;
 		stencilRef = 0;
 		stencilReadMask = 0xFF;
