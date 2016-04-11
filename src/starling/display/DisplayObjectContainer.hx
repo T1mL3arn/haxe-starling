@@ -420,7 +420,7 @@ class DisplayObjectContainer extends DisplayObject
 		if (toIndex <= 0) return;
 		
 		var i:Int = toIndex - 1;
-		while (i > fromIndex) 
+		while (i >= fromIndex) 
 		{
 			sBroadcastListeners[i].dispatchEvent(event);
 			sBroadcastListeners.splice(i, 1);
