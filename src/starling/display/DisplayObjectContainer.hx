@@ -19,7 +19,6 @@ import openfl.geom.Point;
 import openfl.geom.Rectangle;
 import openfl.geom.Vector3D;
 import openfl.system.Capabilities;
-import openfl.Vector;
 
 import starling.core.RenderSupport;
 import starling.errors.AbstractClassError;
@@ -76,8 +75,8 @@ class DisplayObjectContainer extends DisplayObject
 	/** Helper objects. */
 	private static var sHelperMatrix:Matrix = new Matrix();
 	private static var sHelperPoint:Point = new Point();
-	private static var sBroadcastListeners = new Vector<DisplayObject>();
-	private static var sSortBuffer = new Vector<DisplayObject>();
+	private static var sBroadcastListeners = new Array<DisplayObject>();
+	private static var sSortBuffer = new Array<DisplayObject>();
 	
 	public var numChildren(get, null):Int;
 	public var touchGroup(get, set):Bool;
@@ -205,8 +204,8 @@ class DisplayObjectContainer extends DisplayObject
 	 *  If no arguments are given, all children will be removed. */
 	public function removeChildren(beginIndex:Int=0, endIndex:Int=-1, dispose:Bool=false):Void
 	{
-		if (endIndex < 0 || endIndex >= numChildren) 
-			endIndex = numChildren - 1;
+		if (endIndex < 0 || endIndex > numChildren) 
+			endIndex = numChildren;
 		
 		for (i in beginIndex...endIndex)
 			removeChildAt(beginIndex, dispose);
@@ -276,9 +275,9 @@ class DisplayObjectContainer extends DisplayObject
 	 *  of the Vector class). */
 	public function sortChildren(compareFunction:DocFunction):Void
 	{
-		sSortBuffer.length = mChildren.length;
+		sSortBuffer.splice(mChildren.length, sSortBuffer.length);
 		mergeSort(mChildren, compareFunction, 0, mChildren.length, sSortBuffer);
-		sSortBuffer.length = 0;
+		sSortBuffer.splice(0, sSortBuffer.length);
 	}
 	
 	/** Determines if a certain object is a child of the container (recursively). */
@@ -415,17 +414,23 @@ class DisplayObjectContainer extends DisplayObject
 		// And since another listener could call this method internally, we have to take 
 		// care that the static helper vector does not get currupted.
 		
-		//trace("sBroadcastListeners.length = " + sBroadcastListeners.length);
 		var fromIndex:Int = sBroadcastListeners.length;
 		sBroadcastListeners = getChildEventListeners(this, event.type, sBroadcastListeners);
 		var toIndex:Int = sBroadcastListeners.length;
+		if (toIndex <= 0) return;
 		
-		for (i in fromIndex...toIndex) {
-			//trace(sBroadcastListeners[i]);
+		var i:Int = toIndex - 1;
+		while (i >= fromIndex) 
+		{
 			sBroadcastListeners[i].dispatchEvent(event);
+			sBroadcastListeners.splice(i, 1);
+			i--;
 		}
+		/*for (i in fromIndex...toIndex) {
+			sBroadcastListeners[i].dispatchEvent(event);
+		}*/
 		
-		sBroadcastListeners.length = fromIndex;
+		//sBroadcastListeners.splice(fromIndex, sBroadcastListeners.length);
 	}
 	
 	/** Dispatches an event with the given parameters on all children (recursively). 
