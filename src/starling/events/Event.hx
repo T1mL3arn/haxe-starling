@@ -85,8 +85,6 @@ class Event
 	public static var READY:String = "ready";
 	public static var FOCUS_CHANGE:String = "focusChange";
 	
-	static public inline var FOCUS_CHANGE:String = "focusChange";
-	
 	private static var sEventPool = new Array<Event>();
 	
 	private var mTarget:EventDispatcher;
