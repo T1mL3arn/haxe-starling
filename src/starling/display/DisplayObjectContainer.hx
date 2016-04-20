@@ -204,8 +204,8 @@ class DisplayObjectContainer extends DisplayObject
 	 *  If no arguments are given, all children will be removed. */
 	public function removeChildren(beginIndex:Int=0, endIndex:Int=-1, dispose:Bool=false):Void
 	{
-		if (endIndex < 0 || endIndex >= numChildren) 
-			endIndex = numChildren - 1;
+		if (endIndex < 0 || endIndex > numChildren) 
+			endIndex = numChildren;
 		
 		for (i in beginIndex...endIndex)
 			removeChildAt(beginIndex, dispose);
@@ -420,7 +420,7 @@ class DisplayObjectContainer extends DisplayObject
 		if (toIndex <= 0) return;
 		
 		var i:Int = toIndex - 1;
-		while (i > fromIndex) 
+		while (i >= fromIndex) 
 		{
 			sBroadcastListeners[i].dispatchEvent(event);
 			sBroadcastListeners.splice(i, 1);
