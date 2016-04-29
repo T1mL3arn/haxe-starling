@@ -406,7 +406,7 @@ class BitmapFont
 			containerWidth  = width / scale;
 			containerHeight = height / scale;
 			
-			if (mLineHeight <= containerHeight)
+			if ( true)//mLineHeight <= containerHeight)
 			{
 				var lastWhiteSpace:Int = -1;
 				var lastCharID:Int = -1;
