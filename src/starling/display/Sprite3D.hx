@@ -181,14 +181,18 @@ class Sprite3D extends DisplayObjectContainer
 		var y:Float = this.y;
 		var scaleX:Float = this.scaleX;
 		var scaleY:Float = this.scaleY;
+		var scaleZ:Float = this.scaleZ;
 		var pivotX:Float = this.pivotX;
 		var pivotY:Float = this.pivotY;
 		var rotationZ:Float = this.rotation;
 
 		mTransformationMatrix3D.identity();
 
-		if (scaleX != 1.0 || scaleY != 1.0 || mScaleZ != 1.0){
-			mTransformationMatrix3D.appendScale(cast ((cast scaleX) || (cast E)) , cast ((cast scaleY) || (cast E)), cast ((cast scaleZ) || (cast E)));
+		if (scaleX != 1.0 || scaleY != 1.0 || scaleZ != 1.0){
+			if (scaleX == 0) scaleX = E;
+			if (scaleY == 0) scaleY = E;
+			if (scaleZ == 0) scaleZ = E;
+			mTransformationMatrix3D.appendScale(scaleX, scaleY, scaleZ);
 		}
 		if (mRotationX != 0.0)
 			mTransformationMatrix3D.appendRotation(StarlingUtils.rad2deg(mRotationX), Vector3D.X_AXIS);
