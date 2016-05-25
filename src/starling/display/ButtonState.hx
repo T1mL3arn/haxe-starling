@@ -19,14 +19,14 @@ class ButtonState
 	public function new() { throw new AbstractClassError(); }
 
 	/** The button's default state. */
-	public static var UP:String = "up";
+	public static inline var UP:String = "up";
 
 	/** The button is pressed. */
-	public static var DOWN:String = "down";
+	public static inline var DOWN:String = "down";
 
 	/** The mouse hovers over the button. */
-	public static var OVER:String = "over";
+	public static inline var OVER:String = "over";
 
 	/** The button was disabled altogether. */
-	public static var DISABLED:String = "disabled";
+	public static inline var DISABLED:String = "disabled";
 }
