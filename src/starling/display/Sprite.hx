@@ -82,9 +82,13 @@ class Sprite extends DisplayObjectContainer
 	{
 		if (mFlattenedContents != null)
 		{
-			for (i in 0...mFlattenedContents.length)
-				mFlattenedContents[i].dispose();
-			
+			var i:Int = mFlattenedContents.length - 1;
+			while (i >= 0) 
+			{
+				mFlattenedContents[i].removeFromParent(true);
+				mFlattenedContents.splice(i, 1);
+				i--;
+			}
 			mFlattenedContents = null;
 		}
 	}
