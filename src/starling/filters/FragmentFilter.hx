@@ -365,7 +365,7 @@ class FragmentFilter
             MatrixUtil.prependTranslation(sTransformationMatrix,
                 bounds.x + mOffsetX, bounds.y + mOffsetY);
             quadBatch.addImage(image, 1.0, sTransformationMatrix);
-            trace("CHECK");
+//            trace("CHECK");
 			//quadBatch.ownsTexture = true;
 
             return quadBatch;

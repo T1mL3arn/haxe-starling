@@ -33,55 +33,38 @@ class AtfData
 	public var data(get, null):ByteArray;
 	
 	/** Create a new instance by parsing the given byte array. */
-	public function new(data:ByteArray)
-	{
-		if (!isAtfData(data)) {
-			throw new ArgumentError("Invalid ATF data");
-		}
-		
-		//String.fromCharCode(Std.parseInt(cast data.readByte()));
-		trace("FIX");
-		data.position = 6;
-		var v = data.readByte();
-		if (v == 255) data.position = 12; // new file version
-		else data.position =  6; // old file version
+    public function new(data:ByteArray)
+    {
+        if (!isAtfData(data)) throw new ArgumentError("Invalid ATF data");
+        
+        if (data[6] == 255) data.position = 12; // new file version
+        else                data.position =  6; // old file version
 
-		var format:UInt = data.readUnsignedByte();
-		switch (5) // FIX switch (format & 127)
-		{
-			case 0:
-			case 1: mFormat = Context3DTextureFormat.BGRA;
-			case 2:
-			case 3: mFormat = Context3DTextureFormat.COMPRESSED;
-			case 4:
-			case 5: mFormat = "compressedAlpha"; // explicit string to stay compatible 
-														// with older versions
-			default: throw new Error("Invalid ATF format");
-		}
-		
-		data.position = 13; // REMOVE hardcard 13
-		mWidth = cast Math.pow(2, data.readUnsignedByte());
-		mHeight = cast Math.pow(2, data.readUnsignedByte());
-		mNumTextures = data.readUnsignedByte();
-		mIsCubeMap = false;// FIX, remove hardcoded false // Was set to (format & 0x80) != 0;
-		mData = data;
-		
-		// version 2 of the new file format contains information about
-		// the "-e" and "-n" parameters of png2atf
-		
-		data.position = 5;
-		var d5:Int = data.readByte();
-		var d6:Int = data.readByte();
-		
-		if (d5 != 0 && d6 == 255)
-		{
-			data.position = 5;
-			var d5 = data.readByte();
-			var emptyMipmaps:Bool = (d5 & 0x01) == 1;
-			var numTextures:Int  = d5 >> 1 & 0x7f;
-			mNumTextures = emptyMipmaps ? 1 : numTextures;
-		}
-	}
+        var format:UInt = data.readUnsignedByte();
+        switch (format & 0x7f)
+        {
+            case  0, 1: mFormat = Context3DTextureFormat.BGRA;
+            case 12, 2, 3: mFormat = Context3DTextureFormat.COMPRESSED;
+            case 13, 4, 5: mFormat = Context3DTextureFormat.COMPRESSED_ALPHA; // explicit string for compatibility
+            default: throw new Error("Invalid ATF format");
+        }
+        
+        mWidth = Std.int(Math.pow(2, data.readUnsignedByte())); 
+        mHeight = Std.int(Math.pow(2, data.readUnsignedByte()));
+        mNumTextures = data.readUnsignedByte();
+        mIsCubeMap = (format & 0x80) != 0;
+        mData = data;
+        
+        // version 2 of the new file format contains information about
+        // the "-e" and "-n" parameters of png2atf
+        
+        if (data[5] != 0 && data[6] == 255)
+        {
+            var emptyMipmaps:Bool = (data[5] & 0x01) == 1;
+            var numTextures:Int  = data[5] >> 1 & 0x7f;
+            mNumTextures = emptyMipmaps ? 1 : numTextures;
+        }
+    }
 
 	/** Checks the first 3 bytes of the data for the 'ATF' signature. */
 	public static function isAtfData(data:ByteArray):Bool
