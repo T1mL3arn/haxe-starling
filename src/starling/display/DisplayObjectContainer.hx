@@ -184,7 +184,7 @@ class DisplayObjectContainer extends DisplayObject
 					var container:DisplayObjectContainer = cast(child, DisplayObjectContainer);
 					container.broadcastEventWith(Event.REMOVED_FROM_STAGE);
 				}
-				else child.dispatchEventWith(Event.REMOVED_FROM_STAGE);
+				child.dispatchEventWith(Event.REMOVED_FROM_STAGE);
 			}
 			
 			child.setParent(null);
