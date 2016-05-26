@@ -89,10 +89,6 @@ class Canvas extends DisplayObject
 				i--;
 			}
 		}
-		mPolygons = null;
-		if (mVertexData != null) mVertexData.rawData = null;
-		mVertexData = null;
-		mIndexData = null;
 		
 		if (Starling.current != null) {
 			Starling.current.removeEventListener(Event.CONTEXT3D_CREATE, onContextCreated);
