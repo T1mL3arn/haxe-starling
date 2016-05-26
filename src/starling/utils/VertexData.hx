@@ -584,6 +584,11 @@ class VertexData
 		mPremultipliedAlpha = value;
 	}
 	
+	public function dispose() 
+	{
+		
+	}
+	
    /** Indicates if the rgb values are stored premultiplied with the alpha value.
 	*  If you change this value, the color data is updated accordingly. If you don't want
 	*  that, use the 'setPremultipliedAlpha' method instead. */
@@ -644,8 +649,7 @@ class VertexData
 		private function get_rawData():Vector<Float> { return mRawData; }
 		private function set_rawData(value:Vector<Float>):Vector<Float>
 		{
-			mRawData = value;
-			return value;
+			return mRawData = value;
 		}
 	//#end
 }
