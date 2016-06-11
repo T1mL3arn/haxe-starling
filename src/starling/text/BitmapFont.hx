@@ -10,7 +10,7 @@
 
 package starling.text;
 
-import com.imagination.util.geom.Point;
+import openfl.geom.Point;
 import openfl.errors.ArgumentError;
 import openfl.geom.Rectangle;
 import openfl.utils.Dictionary;

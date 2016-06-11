@@ -780,7 +780,7 @@ class Starling extends EventDispatcher
 	
 	private function onKey(event:openfl.events.KeyboardEvent):Void
 	{
-		if (mStarted == true) return;
+		if (!mStarted) return;
 		
 		var keyEvent:starling.events.KeyboardEvent = new starling.events.KeyboardEvent(event.type, cast event.charCode, cast event.keyCode, cast event.keyLocation, event.ctrlKey, event.altKey, event.shiftKey);
 		

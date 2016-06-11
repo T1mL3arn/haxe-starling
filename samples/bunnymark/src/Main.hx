@@ -2,6 +2,8 @@ package;
 
 import openfl.display.FPS;
 import openfl.display.Sprite;
+import openfl.display3D.Context3DProfile;
+import openfl.display3D.Context3DRenderMode;
 import openfl.events.Event;
 import openfl.Lib;
 import starling.core.Starling;
@@ -38,7 +40,7 @@ class Main extends Sprite
 		Starling.handleLostContext = true; // recommended everywhere when using AssetManager
 		RenderTexture.optimizePersistentBuffers = true; // should be safe on Desktop
 		
-		mStarling = new Starling(BunnyMark, stage, null, null, "auto", "baselineExtended");
+		mStarling = new Starling(BunnyMark, stage, null, null, Context3DRenderMode.AUTO, Context3DProfile.BASELINE_EXTENDED);
 		mStarling.antiAliasing = 0;
 		mStarling.simulateMultitouch = false;
 		//mStarling.enableErrorChecking = Capabilities.isDebugger;
