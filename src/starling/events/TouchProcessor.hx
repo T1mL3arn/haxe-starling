@@ -203,7 +203,6 @@ class TouchProcessor
 			if (touch.target != touchData.target)
 				touchEvent.dispatch(touchData.bubbleChain);
 		}
-		
 		// dispatch events for the rest of our updated touches
 		for (touch in touches) {
 			touch.dispatchEvent(touchEvent);

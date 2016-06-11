@@ -40,7 +40,12 @@ import openfl.text.TextField;
 import openfl.text.TextFieldAutoSize;
 import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
+#if flash
+import flash.ui.Mouse;
+#else
 import openfl.ui.Mouse;
+#end
+
 import openfl.ui.Multitouch;
 import openfl.ui.MultitouchInputMode;
 import openfl.utils.ByteArray;
@@ -846,8 +851,12 @@ class Starling extends EventDispatcher
 			// is dispatched as mouse event as well. Since we don't want to listen to that
 			// event twice, we ignore the primary touch in that case.
 			
-			trace("FIX"); // update when Mouse.supportsCursor becomes available
-			if (/*Mouse.supportsCursor &&*/ touchEvent.isPrimaryTouchPoint) return;
+			var supportsCursor:Bool = false;
+			#if flash
+				supportsCursor = Mouse.supportsCursor;
+			#end
+			
+			if (supportsCursor && touchEvent.isPrimaryTouchPoint) return;
 			else
 			{
 				globalX  = touchEvent.stageX;
@@ -897,11 +906,15 @@ class Starling extends EventDispatcher
 			types.push(TouchEvent.TOUCH_END);
 		}
 		
-		//if (multitouchEnabled == false /*|| Mouse.supportsCursor*/) {
+		var supportsCursor:Bool = false;
+		#if flash
+			supportsCursor = Mouse.supportsCursor;
+		#end
+		if (multitouchEnabled == false || supportsCursor) {
 			types.push(MouseEvent.MOUSE_DOWN);
 			types.push(MouseEvent.MOUSE_MOVE);
 			types.push(MouseEvent.MOUSE_UP);
-		//}
+		}
 		
 		return types;
 	}
