@@ -45,33 +45,34 @@ class BlendMode
 	public function new() { throw new AbstractClassError(); }
 	
 	/** Inherits the blend mode from this display object's parent. */
-	public static var AUTO:String = "auto";
+	public static inline var AUTO:String = "auto";
 
 	/** Deactivates blending, i.e. disabling any transparency. */
-	public static var NONE:String = "none";
+	public static inline var NONE:String = "none";
 	
 	/** The display object appears in front of the background. */
-	public static var NORMAL:String = "normal";
+	public static inline var NORMAL:String = "normal";
 	
 	/** Adds the values of the colors of the display object to the colors of its background. */
-	public static var ADD:String = "add";
+	public static inline var ADD:String = "add";
 	
 	/** Multiplies the values of the display object colors with the the background color. */
-	public static var MULTIPLY:String = "multiply";
+	public static inline var MULTIPLY:String = "multiply";
 	
 	/** Multiplies the complement (inverse) of the display object color with the complement of 
 	  * the background color, resulting in a bleaching effect. */
-	public static var SCREEN:String = "screen";
+	public static inline var SCREEN:String = "screen";
 	
 	/** When used on a RenderTexture, the drawn object will act as a mask for the current
 	 *  content, i.e. the source alpha overwrites the destination alpha. */
-	public static var MASK:String = "mask";
+	public static inline var MASK:String = "mask";
 
 	/** Erases the background when drawn on a RenderTexture. */
-	public static var ERASE:String = "erase";
+	public static inline var ERASE:String = "erase";
 	
 	/** Draws under/below existing objects; useful especially on RenderTextures. */
-	public static var BELOW:String = "below";
+	public static inline var BELOW:String = "below";
+	
 	static private var _sBlendFactors:Array<Map<String, BlendFactor>>;
 	static private var lastModeIndex:Int = -1;
 	static private var lastModeFactors:Array<Context3DBlendFactor>;
@@ -84,26 +85,26 @@ class BlendMode
 			_sBlendFactors = new Array<Map<String, BlendFactor>>();
 	// no premultiplied alpha
 	var map1:Map<String, BlendFactor> = new Map<String, BlendFactor>();
-	map1.set("none",	new BlendFactor("none",		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ZERO ]));
-	map1.set("normal",	new BlendFactor("normal",	[ Context3DBlendFactor.SOURCE_ALPHA,				Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
-	map1.set("add",		new BlendFactor("add",		[ Context3DBlendFactor.SOURCE_ALPHA,				Context3DBlendFactor.DESTINATION_ALPHA ]));
-	map1.set("multiply",new BlendFactor("multiply",	[ Context3DBlendFactor.DESTINATION_COLOR,			Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
-	map1.set("screen",	new BlendFactor("screen",	[ Context3DBlendFactor.SOURCE_ALPHA,				Context3DBlendFactor.ONE ]));
-	map1.set("erase",	new BlendFactor("erase",	[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
-	map1.set("mask",	new BlendFactor("mask",		[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.SOURCE_ALPHA ]));
-	map1.set("below",	new BlendFactor("below",	[ Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA, Context3DBlendFactor.DESTINATION_ALPHA ]));
+	map1.set(NONE,		new BlendFactor(NONE,		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ZERO ]));
+	map1.set(NORMAL,	new BlendFactor(NORMAL,		[ Context3DBlendFactor.SOURCE_ALPHA,				Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
+	map1.set(ADD,		new BlendFactor(ADD,		[ Context3DBlendFactor.SOURCE_ALPHA,				Context3DBlendFactor.DESTINATION_ALPHA ]));
+	map1.set(MULTIPLY,	new BlendFactor(MULTIPLY,	[ Context3DBlendFactor.DESTINATION_COLOR,			Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
+	map1.set(SCREEN,	new BlendFactor(SCREEN,		[ Context3DBlendFactor.SOURCE_ALPHA,				Context3DBlendFactor.ONE ]));
+	map1.set(ERASE,		new BlendFactor(ERASE,		[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
+	map1.set(MASK,		new BlendFactor(MASK,		[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.SOURCE_ALPHA ]));
+	map1.set(BELOW,		new BlendFactor(BELOW,		[ Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA, Context3DBlendFactor.DESTINATION_ALPHA ]));
 	_sBlendFactors.push(map1);
 	
 	// premultiplied alpha
 	var map2:Map<String, BlendFactor> = new Map<String, BlendFactor>();
-	map2.set("none",	new BlendFactor("none",		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ZERO ]));
-	map2.set("normal",	new BlendFactor("normal",	[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
-	map2.set("add",		new BlendFactor("add",		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ONE ]));
-	map2.set("multiply",new BlendFactor("multiply",	[ Context3DBlendFactor.DESTINATION_COLOR,			Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
-	map2.set("screen",	new BlendFactor("screen",	[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ONE_MINUS_SOURCE_COLOR ]));
-	map2.set("erase",	new BlendFactor("erase",	[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
-	map2.set("mask",	new BlendFactor("mask",		[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.SOURCE_ALPHA ]));
-	map2.set("below",	new BlendFactor("below",	[ Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA,	Context3DBlendFactor.DESTINATION_ALPHA ]));
+	map2.set(NONE,		new BlendFactor(NONE,		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ZERO ]));
+	map2.set(NORMAL,	new BlendFactor(NORMAL,		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
+	map2.set(ADD,		new BlendFactor(ADD,		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ONE ]));
+	map2.set(MULTIPLY,	new BlendFactor(MULTIPLY,	[ Context3DBlendFactor.DESTINATION_COLOR,			Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
+	map2.set(SCREEN,	new BlendFactor(SCREEN,		[ Context3DBlendFactor.ONE,							Context3DBlendFactor.ONE_MINUS_SOURCE_COLOR ]));
+	map2.set(ERASE,		new BlendFactor(ERASE,		[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.ONE_MINUS_SOURCE_ALPHA ]));
+	map2.set(MASK,		new BlendFactor(MASK,		[ Context3DBlendFactor.ZERO,						Context3DBlendFactor.SOURCE_ALPHA ]));
+	map2.set(BELOW,		new BlendFactor(BELOW,		[ Context3DBlendFactor.ONE_MINUS_DESTINATION_ALPHA,	Context3DBlendFactor.DESTINATION_ALPHA ]));
 	_sBlendFactors.push(map2);
 		}
 		
