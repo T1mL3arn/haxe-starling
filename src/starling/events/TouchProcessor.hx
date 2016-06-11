@@ -149,11 +149,12 @@ class TouchProcessor
 			processTouches(sUpdatedTouches, mShiftDown, mCtrlDown);
 
 			// remove ended touches
-			for (k in 0...mCurrentTouches.length) 
-			{
-				var m = mCurrentTouches.length - 1 - k;
-				if (mCurrentTouches[m].phase == TouchPhase.ENDED)
-					mCurrentTouches.splice(m, 1);
+			var k = 0;
+			while (k < mCurrentTouches.length){
+				if (mCurrentTouches[k].phase == TouchPhase.ENDED)
+					mCurrentTouches.splice(k, 1);
+				else
+					k++;
 			}
 			if (sUpdatedTouches.length != 0){
 				sUpdatedTouches.splice(0, sUpdatedTouches.length);
@@ -203,7 +204,6 @@ class TouchProcessor
 			if (touch.target != touchData.target)
 				touchEvent.dispatch(touchData.bubbleChain);
 		}
-		
 		// dispatch events for the rest of our updated touches
 		for (touch in touches) {
 			touch.dispatchEvent(touchEvent);

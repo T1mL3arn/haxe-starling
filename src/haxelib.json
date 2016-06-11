@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": [ "starling", "2d", "gpu", "openfl", "flash", "air", "js", "web", "cpp" ],
 	"description": "GPU powered 2D rendering engine which mimics the conventional Flash display list architecture",
-	"version": "0.5.5",
-	"releasenote": "fix canvas memory leak",
+	"version": "0.5.6",
+	"releasenote": "fixes for the following: supportsCursor, touch, keyboard, sort TextureAtlas names, fixes wrong import, canvas memory leak",
 	"contributors": [ "p.j.shand", "tbyrne" ],
 	"dependencies": {
 		

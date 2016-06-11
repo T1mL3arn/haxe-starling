@@ -293,4 +293,28 @@ class Scale9Image extends Sprite
 		
 		_cc.visible = _cl.visible && _tc.visible;
 	}
+	
+	override public function dispose():Void
+	{
+		_tl.texture.dispose();
+		_tl.removeFromParent(true);
+		_tc.texture.dispose();
+		_tc.removeFromParent(true);
+		_tr.texture.dispose();
+		_tr.removeFromParent(true);
+		_cl.texture.dispose();
+		_cl.removeFromParent(true);
+		_cc.texture.dispose();
+		_cc.removeFromParent(true);
+		_cr.texture.dispose();
+		_cr.removeFromParent(true);
+		_bl.texture.dispose();
+		_bl.removeFromParent(true);
+		_bc.texture.dispose();
+		_bc.removeFromParent(true);
+		_br.texture.dispose();
+		_br.removeFromParent(true);
+		
+		super.dispose();
+	}
 }

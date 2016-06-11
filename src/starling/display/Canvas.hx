@@ -64,8 +64,20 @@ class Canvas extends DisplayObject
 		
 		registerPrograms();
 		
+		addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		addEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
+		
 		// handle lost context
+	}
+	
+	private function onAddedToStage(e:Event):Void 
+	{
 		Starling.current.addEventListener(Event.CONTEXT3D_CREATE, onContextCreated);
+	}
+	
+	private function onRemovedFromStage(e:Event):Void 
+	{
+		Starling.current.removeEventListener(Event.CONTEXT3D_CREATE, onContextCreated);
 	}
 
 	private function onContextCreated(event:Dynamic):Void
@@ -89,14 +101,12 @@ class Canvas extends DisplayObject
 				i--;
 			}
 		}
-		mPolygons = null;
-		if (mVertexData != null) mVertexData.rawData = null;
-		mVertexData = null;
-		mIndexData = null;
 		
 		if (Starling.current != null) {
 			Starling.current.removeEventListener(Event.CONTEXT3D_CREATE, onContextCreated);
 		}
+		removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+		removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 		
 		super.dispose();
 	}
@@ -148,6 +158,7 @@ class Canvas extends DisplayObject
 	{
 		mVertexData.numVertices = 0;
 		mIndexData.splice(0, mIndexData.length);
+		mPolygons = [];
 	}
 
 	/** @inheritDoc */
@@ -186,6 +197,12 @@ class Canvas extends DisplayObject
 	public override function getBounds(targetSpace:DisplayObject, resultRect:Rectangle=null):Rectangle
 	{
 		if (resultRect == null) resultRect = new Rectangle();
+		
+		if (mVertexData == null){
+			// has been disposed
+			resultRect.setEmpty();
+			return resultRect;
+		}
 		
 		var transformationMatrix:Matrix = targetSpace == this ?
 			null : getTransformationMatrix(targetSpace, sHelperMatrix);
