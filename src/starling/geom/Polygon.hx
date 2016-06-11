@@ -320,6 +320,11 @@ class Polygon
 	{
 		return new Rectangle(x, y, width, height);
 	}
+	
+	public function dispose() 
+	{
+		mCoords = null;
+	}
 
 	// helpers
 

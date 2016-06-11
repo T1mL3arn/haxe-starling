@@ -10,6 +10,7 @@
 
 package starling.text;
 
+import openfl.geom.Point;
 import openfl.errors.ArgumentError;
 import openfl.geom.Rectangle;
 import openfl.utils.Dictionary;
@@ -85,6 +86,7 @@ class BitmapFont
 	private static var sLines = new Vector<Dynamic>();
 	var mostRightX:Float;
 	var fontTags:Array<Dynamic> = new Array<Dynamic>();
+	var charLocations:Array<CharLocation>;
 	
 	public var name(get, null):String;
 	public var size(get, null):Float;
@@ -264,7 +266,6 @@ class BitmapFont
 		if (hAlign == null) hAlign = HAlign.CENTER;
 		if (vAlign == null) vAlign = VAlign.CENTER;
 		
-		var charLocations:Array<CharLocation>;
 		if (hAlign == HAlign.JUSTIFY)
 			charLocations = justifyChars(width, height, text, fontSize, hAlign, vAlign, autoScale, kerning);
 		else
@@ -293,6 +294,26 @@ class BitmapFont
 		return sprite;
 	}
 	
+	public function getCharIdAtPoint( point:Point ):Int
+	{
+		var len:Int = charLocations.length;
+		for (i in 0 ... len) 
+		{
+			var charLoc:CharLocation = charLocations[i];
+			if ( point.x > charLoc.x && point.x < charLoc.x + charLoc.width)
+				return i;
+		}
+		
+		return len;
+	}
+	
+	public function getCharPosition(id:Int):Point
+	{
+		if (charLocations[id] == null)
+			return null;
+		return new Point( charLocations[id].x, charLocations[id].y );
+	}
+		
 	function justifyChars(width:Float, height:Float, text:String, fontSize:Float, hAlign:HAlign, vAlign:VAlign, autoScale:Bool, kerning:Bool):Array<CharLocation>
 	{
 		var charLocations:Array<CharLocation>;
@@ -325,7 +346,6 @@ class BitmapFont
 		if (hAlign == null) hAlign = HAlign.CENTER;
 		if (vAlign == null) vAlign = VAlign.CENTER;
 		
-		var charLocations:Array<CharLocation>;
 		if (hAlign == HAlign.JUSTIFY)
 			charLocations = justifyChars(width, height, text, fontSize, hAlign, vAlign, autoScale, kerning);
 		else
@@ -386,7 +406,7 @@ class BitmapFont
 			containerWidth  = width / scale;
 			containerHeight = height / scale;
 			
-			if (mLineHeight <= containerHeight)
+			if ( true)//mLineHeight <= containerHeight)
 			{
 				var lastWhiteSpace:Int = -1;
 				var lastCharID:Int = -1;
@@ -408,6 +428,7 @@ class BitmapFont
 					}
 					else if (char == null)
 					{
+						shiftFontTags(i);
 						trace("[Starling] Missing character: " + charID);
 					}
 					else
@@ -471,6 +492,8 @@ class BitmapFont
 								currentX += splicedChars[j].char.xAdvance + letterSpacing;
 								currentLine.push( splicedChars[j] );
 							}
+							
+							shiftFontTags(i);
 						}
 						else
 						{
@@ -483,6 +506,7 @@ class BitmapFont
 						sLines[sLines.length] = currentLine; // push
 						finished = true;
 					}
+					
 				} // for each char
 			} // if (mLineHeight <= containerHeight)
 			
@@ -541,12 +565,28 @@ class BitmapFont
 					charLocation.y = Math.round(charLocation.y);
 				}
 				
+				if (finalLocations[finalLocations.length - 1] != null)
+					charLocation.width = charLocation.x - finalLocations[finalLocations.length - 1].x;
 				if (charLocation.char.width > 0 && charLocation.char.height > 0)
+				{
 					finalLocations[finalLocations.length] = charLocation;
+				}
 			}
 		}
 		
 		return finalLocations;
+	}
+	
+	function shiftFontTags(position:Int) 
+	{
+		for (k in 0 ... fontTags.length) 
+		{
+			if (fontTags[k].start >= position - 1)
+			{
+				fontTags[k].start--;
+				fontTags[k].end--;
+			}
+		}									
 	}
 	
 	public function parseFontTags(text:String):String

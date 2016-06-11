@@ -74,7 +74,7 @@ class TextureAtlas
 {
 	private var mAtlasTexture:Texture;
 	private var mSubTextures:Map<String, Texture>;
-	private var mSubTextureNames:Iterator<String>;
+	private var mSubTextureNames:Array<String>;
 	
 	/** helper objects */
 	private static var sNames = new Vector<String>();
@@ -156,30 +156,28 @@ class TextureAtlas
 	/** Returns all texture names that start with a certain string, sorted alphabetically. */
 	public function getNames(prefix:String="", result:Array<String>=null):Array<String>
 	{
-		var name:String;
 		if (result == null) result = new Array<String>();
-		
-		trace("FIX SORT");
 		
 		if (mSubTextureNames == null)
 		{
 			// optimization: store sorted list of texture names
-			mSubTextureNames = mSubTextures.keys();
+			mSubTextureNames = [];
 			
-			/*for (name in mSubTextures) {
-				if (Std.is(name, String)) mSubTextureNames.push(cast name);
-			}*/
+			for (name in mSubTextures.keys()) 
+				mSubTextureNames.push(name);
 			
-			
-			//mSubTextureNames.sort(Array.CASEINSENSITIVE);
+			mSubTextureNames.sort(function (s1:String, s2:String):Int
+			{
+				if (s1 > s2)		return 1;
+				else if (s1 < s2)	return -1;
+				else			return 0;
+			});
 		}
 		
 		for (key in mSubTextureNames)
-		{
-			if (key.indexOf(prefix) == 0) {
+			if (key.indexOf(prefix) == 0) 
 				result.push(key);
-			}
-		}
+		
 		return result;
 	}
 	

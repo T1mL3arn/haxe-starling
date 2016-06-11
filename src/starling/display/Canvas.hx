@@ -75,9 +75,29 @@ class Canvas extends DisplayObject
 	}
 
 	/** @inheritDoc */
-	public override function dispose():Void
+	override public function dispose():Void
 	{
 		destroyBuffers();
+		
+		if (mPolygons != null){
+			var i:Int = mPolygons.length - 1;
+			while (i >= 0) 
+			{
+				mPolygons[i].dispose();
+				mPolygons[i] = null;
+				mPolygons.splice(i, 1);
+				i--;
+			}
+		}
+		mPolygons = null;
+		if (mVertexData != null) mVertexData.rawData = null;
+		mVertexData = null;
+		mIndexData = null;
+		
+		if (Starling.current != null) {
+			Starling.current.removeEventListener(Event.CONTEXT3D_CREATE, onContextCreated);
+		}
+		
 		super.dispose();
 	}
 

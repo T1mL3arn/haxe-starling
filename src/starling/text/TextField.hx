@@ -310,7 +310,7 @@ class TextField extends DisplayObjectContainer
 		if (hAlign == HAlign.LEFT) align = TextFormatAlign.LEFT;
 		else if (hAlign == HAlign.RIGHT) align = TextFormatAlign.RIGHT;
 		else if (hAlign == HAlign.JUSTIFY) align = TextFormatAlign.JUSTIFY;
-		var textFormat:TextFormat = new TextFormat(mFontName, cast(mFontSize * scale, Null<Int>), mColor, mBold, mItalic, mUnderline, null, null, align, null, null, null, null);
+		var textFormat:TextFormat = new TextFormat(mFontName, Math.round(mFontSize * scale), mColor, mBold, mItalic, mUnderline, null, null, align, null, null, null, null);
 		textFormat.kerning = mKerning;
 		if(leading != null)
 			textFormat.leading = mLeading;			
@@ -908,6 +908,18 @@ class TextField extends DisplayObjectContainer
 	public static function getBitmapFont(name:String):BitmapFont
 	{
 		return bitmapFonts[name.toLowerCase()];
+	}
+	
+	public function charIdAt(location:Point):Int
+	{
+		var bitmapFont:BitmapFont = getBitmapFont(mFontName);		
+		return bitmapFont.getCharIdAtPoint( location );
+	}
+	
+	public function getCharPos(id:Int):Point
+	{
+		var bitmapFont:BitmapFont = getBitmapFont(mFontName);		
+		return bitmapFont.getCharPosition( id );
 	}
 	
 	/** Stores the currently available bitmap fonts. Since a bitmap font will only work
