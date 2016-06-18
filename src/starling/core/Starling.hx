@@ -906,7 +906,7 @@ class Starling extends EventDispatcher
 			types.push(TouchEvent.TOUCH_END);
 		}
 		
-		var supportsCursor:Bool = false;
+		var supportsCursor:Bool = true;
 		#if flash
 			supportsCursor = Mouse.supportsCursor;
 		#end
