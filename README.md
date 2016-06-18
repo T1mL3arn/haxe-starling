@@ -1,6 +1,5 @@
 # Haxeling (Starling for Haxe)
 ===============
-An unofficial port of Starling 1.7 framework.
 
 [Read more] (http://blog.peteshand.net/starling-for-haxe/)
 
